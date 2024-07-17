@@ -1,29 +1,96 @@
 <strong> **DO NOT DISTRIBUTE OR PUBLICLY POST SOLUTIONS TO THESE LABS. MAKE ALL FORKS OF THIS REPOSITORY WITH SOLUTION CODE PRIVATE. PLEASE REFER TO THE STUDENT CODE OF CONDUCT AND ETHICAL EXPECTATIONS FOR COLLEGE OF INFORMATION TECHNOLOGY STUDENTS FOR SPECIFICS. ** </strong>
 
-# WESTERN GOVERNOR UNIVERSITY 
+# WESTERN GOVERNORS UNIVERSITY 
 ## D387 – ADVANCED JAVA
-Welcome to Advanced Java! This is an opportunity for students to write multithreaded object-oriented code using Java frameworks and determine how to deploy software applications using cloud services.
+<div>
+B.  Modify the Landon Hotel scheduling application for localization and internationalization by doing the following:
 
-FOR SPECIFIC TASK INSTRUCTIONS AND REQUIREMENTS FOR THIS ASSESSMENT, PLEASE REFER TO THE COURSE PAGE.
-## BASIC INSTRUCTIONS
-For this assessment, you will modify a Spring application with a Java back end and an Angular front end to include multithreaded language translation, a message at different time zones, and currency exchange. Then, build a Docker image of the current multithreaded Spring application and containerize it using the supporting documents provided in this task.
+1.   Install the Landon Hotel scheduling application in your integrated development environment (IDE). Modify the Java classes of application to display a welcome message by doing the following:
+
+a.  Build resource bundles for both English and French (languages required by Canadian law). Include a welcome message in the language resource bundles.
+</div>
+<pre>
+I created the following Resource Bundles for both English and French:
+
+            translation_en_us.properties
+                hello=Hello!
+                welcome=Welcome to the Landon Hotel!
+
+            translation_fr_ca.properties
+                hello=Bonjour!
+                welcome=Bienvenue à l'hôtel Landon
+</pre>
 
 
-## SUPPLEMENTAL RESOURCES 
-1.	How to clone a project to IntelliJ using Git?
+<div>
+b.Display the welcome message in both English and French by applying the resource bundles using a different thread for each language.
+</div>
 
-> Ensure that you have Git installed on your system and that IntelliJ is installed using [Toolbox](https://www.jetbrains.com/toolbox-app/). Make sure that you are using version 2022.3.2. Once this has been confirmed, click the clone button and use the 'IntelliJ IDEA (HTTPS)' button. This will open IntelliJ with a prompt to clone the proejct. Save it in a safe location for the directory and press clone. IntelliJ will prompt you for your credentials. Enter in your WGU Credentials and the project will be cloned onto your local machine.  
+<pre>
+I created internationalization.WelcomeController.java:
 
-2. How to create a branch and start Development?
+package edu.wgu.d387_sample_code.internationalization;
 
-- GitLab method
-> Press the '+' button located near your branch name. In the dropdown list, press the 'New branch' button. This will allow you to create a name for your branch. Once the branch has been named, you can select 'Create Branch' to push the branch to your repository.
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-- IntelliJ method
-> In IntelliJ, Go to the 'Git' button on the top toolbar. Select the new branch option and create a name for the branch. Make sure checkout branch is selected and press create. You can now add a commit message and push the new branch to the local repo.
+import java.util.Locale;
 
-## SUPPORT
-If you need additional support, please navigate to the course page and reach out to your course instructor.
-## FUTURE USE
-Take this opportunity to create or add to a simple resume portfolio to highlight and showcase your work for future use in career search, experience, and education!
+@CrossOrigin(origins = "http://localhost:4200") // This is Needed for the front end
+@RestController
+public class WelcomeController {
 
+    @GetMapping("/welcome")
+
+    public ResponseEntity displayWelcome (@RequestParam("lang") String lang) { // This request the html lang parameter.
+        Locale locale = Locale.forLanguageTag(lang); // This creates a locale object based on lang parameter
+        WelcomeMessage welcomeMessage = new WelcomeMessage(locale); //This creates a welcomeMessage to pull the corresponding lang
+        return new ResponseEntity (welcomeMessage.getWelcomeMessage(), HttpStatus.OK); // this is for the respond
+    }
+}
+
+I also created internationalization.WelcomeMessage.java:
+
+package edu.wgu.d387_sample_code.internationalization;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+
+public class WelcomeMessage implements Runnable{
+
+    Locale locale;
+
+    // Constructor
+    public WelcomeMessage(Locale locale) {
+        this.locale = locale;
+    }
+
+    public String getWelcomeMessage() {
+        ResourceBundle bundle = ResourceBundle.getBundle("translation", locale);
+        return bundle.getString("welcome");
+     }
+    @Override
+    public void run() {
+        System.out.println(
+                "Thread verification: " + getWelcomeMessage() +
+                        ", ThreadID: " + Thread.currentThread().getId()
+        );
+    }
+}
+
+I modified D387SampleCodeApplication.java, LINES 15-23:
+
+// I Created threads for the Welcome Message in French and English
+		WelcomeMessage welcomeMessageEnglish = new WelcomeMessage(Locale.US);
+		Thread englishWelcomeThread = new Thread(welcomeMessageEnglish);
+		englishWelcomeThread.start();
+
+		WelcomeMessage welcomeMessageFrench = new WelcomeMessage(Locale.CANADA_FRENCH);
+		Thread frenchWelcomeThread = new Thread(welcomeMessageFrench);
+		frenchWelcomeThread.start();
+
+</pre>
