@@ -23,7 +23,7 @@
   <div class="scene" id="welcome">
     <article class="content">
 
- 
+
 
       <div class="row">
         <div class=""col-12>
@@ -58,7 +58,7 @@
               </div>
               </form>
 
-        
+
         </div>
       </div>
 
@@ -76,6 +76,9 @@
                 <td>
                   <strong>Room #: {{room.roomNumber}}</strong><br/>
                   <strong>Price: ${{room.price}}</strong>
+                  < !-- B2 > - This Code adds CAD and EUR price listings -- >
+                  < strong > Price: CA${{room.priceCAD}} < /strong > < br >
+                  < strong > Price: EUR€{{room.priceEUR}} < /strong > < br >
                 </td>
                 <td>
                   <button type="submit" class="btn btn-primary" (click)="reserveRoom(room.id)">Reserve</button>

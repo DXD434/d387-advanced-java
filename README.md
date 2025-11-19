@@ -94,3 +94,29 @@ I modified D387SampleCodeApplication.java, LINES 15-23:
 		frenchWelcomeThread.start();
 
 </pre>
+
+<div>
+B2.   Modify the front end to display the price for a reservation in currency rates for U.S. dollars ($), Canadian dollars (C$), and euros (€) on different lines. <br>
+Note: It is not necessary to convert the values of the prices. <br>
+</div>    
+
+<pre>
+I modified  app.component.ts, lines 57-58
+
+// B2 - Code that adds the CAD/EUR "prices"
+this.rooms.forEach( room => { room.priceCAD = room.price; room.priceEUR = room.price})
+
+ app.component.ts, lines 111-113
+// B2 - Code that adds the CAD/EUR "prices"
+  priceCAD:string;
+  priceEUR:string;
+
+
+ app.component.html, lines 79-81
+
+< !-- B2 > - This Code adds CAD and EUR price listings -- >
+< strong > Price: CA${{room.priceCAD}} < /strong > < br >
+< strong > Price: EUR€{{room.priceEUR}} < /strong > < br >
+
+</pre>
+
