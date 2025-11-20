@@ -15,6 +15,14 @@ import {map} from "rxjs/operators";
 })
 export class AppComponent implements OnInit{
 
+
+  // B1B - This code to print the welcome message in French and English on the website
+  welcomeMessageEnglish$!: Observable<string>
+  welcomeMessageFrench$!: Observable<string>
+
+  // B3B - Code to announce the presentation w/ time zone conversions
+  announcePresentation$!: Observable<string>
+
   constructor(private httpClient:HttpClient){}
 
   private baseURL:string='http://localhost:8080';
@@ -29,6 +37,14 @@ export class AppComponent implements OnInit{
   currentCheckOutVal!:string;
 
     ngOnInit(){
+
+      // B1B - This code to prints the welcome message in French and English on the website
+      this.welcomeMessageFrench$ = this.httpClient.get(this.baseURL + '/welcome?lang=fr-CA', {responseType: 'text'} )
+      this.welcomeMessageEnglish$ = this.httpClient.get(this.baseURL + '/welcome?lang=en-US', {responseType: 'text'} )
+
+      // B3B - This code adds the conference announcement
+      this.announcePresentation$ = this.httpClient.get(this.baseURL + '/presentation', {responseType: 'text'} )
+
       this.roomsearch= new FormGroup({
         checkin: new FormControl(' '),
         checkout: new FormControl(' ')
