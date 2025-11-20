@@ -84,11 +84,13 @@
                   <img src="assets/images/intro_room.jpg" alt="Intro Gallery Room Sample Pictures">
                 </td>
                 <td>
-                  <strong>Room #: {{room.roomNumber}}</strong><br/>
-                  <strong>Price: ${{room.price}}</strong>
-                  < !-- B2 > - This Code adds CAD and EUR price listings -- >
-                  < strong > Price: CA${{room.priceCAD}} < /strong > < br >
-                  < strong > Price: EUR€{{room.priceEUR}} < /strong > < br >
+                  <!-- B2: Display price in multiple currencies -->
+                  <p>
+                    <strong>Room #: {{room.roomNumber}}</strong><br>
+                    <strong>Price: ${{room.price}}</strong><br>
+                    <strong>Price: CA${{room.priceCAD}}</strong><br>
+                    <strong>Price: €{{room.priceEUR}}</strong>
+                  </p>
                 </td>
                 <td>
                   <button type="submit" class="btn btn-primary" (click)="reserveRoom(room.id)">Reserve</button>

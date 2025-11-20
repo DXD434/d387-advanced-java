@@ -1,0 +1,11 @@
+81640e3 C1 completed.
+2ba64e2 B3 completed.
+26a13b7 I commited and pushed my work to reflect my name for completed B1 but the first commit should show my work.
+c672098 Completed B2
+ba0cdd3 Merge remote-tracking branch 'origin/working_branch' into working_branch
+84b6442 Completed B1
+836db0e Corrected mispelling
+1421e97 Update pom.xml - commented out redundant dependencies.
+1b60ca3 Added Branching instructions to README
+52e9401 Upload base project
+6d77cc7 Upload ReadMe

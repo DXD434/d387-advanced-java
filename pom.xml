@@ -83,9 +83,13 @@
 	</dependencies>
 
 	<build>
-		<plugins>			<plugin>
+
+
+		<plugins>
+			<!--
+			<plugin>
 			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>exec-maven-plugin</artifactId>
+			 <artifactId>exec-maven-plugin</artifactId>
 			<version>1.6.0</version>
 			<executions>
 				<execution>
@@ -119,6 +123,30 @@
 				</configuration>
 			</plugin>
 		</plugins>
+	-->
+		<!-- Spring Boot plugin with repackage goal -->
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<version>${project.parent.version}</version>
+			<executions>
+				<execution>
+					<goals>
+						<goal>repackage</goal>
+					</goals>
+				</execution>
+			</executions>
+			<configuration>
+				<excludes>
+					<exclude>
+						<groupId>org.projectlombok</groupId>
+						<artifactId>lombok</artifactId>
+					</exclude>
+				</excludes>
+			</configuration>
+		</plugin>
+		</plugins>
+
 	</build>
 
 </project>
