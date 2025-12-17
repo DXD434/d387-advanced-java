@@ -266,26 +266,26 @@ this.announcePresentation$ = this.httpClient.get(this.baseURL + '/presentation',
         ```
 
 
-### C2. Below is a screenshot of my completed project.
-```
-<div align="center">
-  <img src="images/img.png" width="400">
-</div>
+## C2. Project Screenshots
 
+Below is a screenshot of my completed project.
 
 <div align="center">
-  <img src="images/img1.png" width="400">
+  <img src="images/img.png" width="400" alt="Screenshot of completed project"><br><br>
+  <img src="images/img1.png" width="400" alt="Another view of the project">
 </div>
 
+---
 
-```
+## C3. Deployment Plan
 
-```
-### C3.
+For deployment, I would use **AWS Elastic Beanstalk** because it works well with Docker containers and handles key tasks like scaling, monitoring, and log management automatically.
 
-For deployment, I would use AWS Elastic Beanstalk because it works well with Docker containers and takes care of key tasks like scaling, monitoring, and log management without requiring manual setup.
-My process would be to first upload my Docker image to Amazon ECR (Elastic Container Registry). After that, I would create a new Elastic Beanstalk environment that uses the Docker platform. Elastic Beanstalk would automatically pull the image from ECR and set up everything needed, including the EC2 instance, load balancer, and environment configuration.
-This method simplifies the deployment process and provides built-in health checks and easy updates. Whenever I push a new version of the Docker image, the application can be redeployed quickly with minimal effort, making it a strong option for hosting a production-level application.
+My deployment process would be:
 
+- Upload the Docker image to **Amazon ECR (Elastic Container Registry)**
+- Create a new **Elastic Beanstalk environment** using the Docker platform
+- Elastic Beanstalk automatically sets up **EC2 instances, load balancer, and environment configuration**
+- Push new Docker image versions to redeploy quickly
 
-```
+This method simplifies the deployment process and provides **built-in health checks and easy updates**, making it ideal for a production-level application.
